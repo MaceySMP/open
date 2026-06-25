@@ -15,6 +15,9 @@
         .glow-effect {
             box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
         }
+        .owner-glow {
+            box-shadow: 0 0 25px rgba(234, 179, 8, 0.3);
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
@@ -25,84 +28,190 @@
                 MACEY<span class="text-white">SMP</span>
             </h1>
             <div class="flex gap-6 items-center">
-                <a href="#stats" class="hover:text-cyan-400 transition">Sıralama</a>
-                <button onclick="copyIP()" class="bg-cyan-600 hover:bg-cyan-500 text-slate-900 font-bold px-4 py-2 rounded-lg transition flex items-center gap-2 shadow-lg shadow-cyan-500/20">
+                <a href="#stats" class="hover:text-cyan-400 transition text-sm font-medium">Sıralama</a>
+                <button onclick="copyIP()" class="bg-cyan-600 hover:bg-cyan-500 text-slate-900 font-bold px-4 py-2 rounded-lg transition flex items-center gap-2 shadow-lg shadow-cyan-500/20 text-sm">
                     <i class="fa-solid fa-copy"></i> IP Kopyala
                 </button>
             </div>
         </div>
     </nav>
 
-    <header class="max-w-4xl mx-auto text-center px-4 py-16 flex-grow flex flex-col justify-center items-center">
-        <h2 class="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight">
-            Adaleti Kılıcınla Sağla!
-        </h2>
-        <p class="text-slate-400 text-lg max-w-xl mb-8">
-            MaceySMP dünyasına adım at, rakiplerini alt et, kazandığın paralarla krallığını kur. Sağdaki Scoreboard'da adını en üste yazdır!
-        </p>
+    <main class="max-w-4xl w-full mx-auto px-4 py-12 flex-grow space-y-12">
         
-        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 w-full max-w-md glow-effect">
-            <div class="flex justify-between items-center mb-2">
-                <span class="text-slate-400 font-medium">Sunucu Durumu</span>
-                <span class="flex items-center gap-2 text-emerald-400 font-semibold" id="server-status">
-                    <span class="h-2.5 w-2.5 bg-emerald-500 rounded-full animate-pulse"></span> Çevrimiçi
-                </span>
+        <header class="text-center py-6">
+            <h2 class="text-5xl md:text-6xl font-extrabold mb-4 tracking-tight">
+                Adaleti Kılıcınla Sağla!
+            </h2>
+            <p class="text-slate-400 text-lg max-w-xl mx-auto mb-8">
+                MaceySMP dünyasına adım at, rakiplerini alt et. Giriş yap, rütbeni gör ve sağdaki Scoreboard'da adını en üste yazdır!
+            </p>
+            
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 max-w-sm mx-auto text-center glow-effect">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-slate-400 font-medium text-sm">Sunucu Durumu</span>
+                    <span class="flex items-center gap-2 text-emerald-400 font-semibold text-sm" id="server-status">
+                        <span class="h-2.5 w-2.5 bg-emerald-500 rounded-full animate-pulse"></span> Çevrimiçi
+                    </span>
+                </div>
+                <div class="text-3xl font-bold text-left mb-1 text-cyan-400" id="player-count">Yükleniyor...</div>
+                <p class="text-xs text-slate-500 text-left">play.maceysmp.net</p>
             </div>
-            <div class="text-3xl font-bold text-left mb-1" id="player-count">0 / 1000</div>
-            <p class="text-xs text-slate-500 text-left">play.maceysmp.net</p>
-        </div>
-    </header>
+        </header>
 
-    <section id="stats" class="max-w-4xl w-full mx-auto px-4 py-12">
-        <h3 class="text-3xl font-bold mb-8 text-center flex items-center justify-center gap-3">
-            <i class="fa-solid fa-trophy text-amber-400"></i> En Zengin Oyuncular
-        </h3>
-        <div class="bg-slate-950/40 border border-slate-800 rounded-2xl overflow-hidden">
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="bg-slate-900/50 text-slate-400 text-sm uppercase tracking-wider border-b border-slate-800">
-                        <th class="p-4 pl-6">Sıra</th>
-                        <th class="p-4">Oyuncu Adı</th>
-                        <th class="p-4">Öldürme</th>
-                        <th class="p-4 pr-6 text-right">Cüzdan</th>
-                    </tr>
-                </thead>
-                <tbody id="leaderboard-body" class="divide-y divide-slate-800/50 text-slate-300">
-                    <tr>
-                        <td class="p-4 pl-6 text-slate-500" colspan="4">Veriler yükleniyor...</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+        <section id="auth-panel" class="bg-slate-900/40 border border-slate-800 rounded-3xl p-8 glow-effect max-w-xl mx-auto">
+            <div id="login-form">
+                <h3 class="text-2xl font-bold mb-2 text-white flex items-center gap-2">
+                    <i class="fa-solid fa-right-to-bracket text-cyan-400"></i> MaceySMP Giriş Sistemi
+                </h3>
+                <p class="text-sm text-slate-400 mb-6">
+                    Hesap açmadan sunucu paneline erişemezsiniz. Lütfen Minecraft (TLauncher dahil) kullanıcı adınızı girin.
+                </p>
+                <div class="space-y-4">
+                    <input type="text" id="mc-username" placeholder="Minecraft Kullanıcı Adınız" class="w-full p-4 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500 transition font-medium">
+                    <button onclick="handleLogin()" class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black p-4 rounded-xl transition shadow-lg shadow-cyan-500/10 flex items-center justify-center gap-2">
+                        Giriş Yap ve Kafayı Yükle <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="profile-card" class="hidden text-center space-y-6 py-4">
+                <div class="relative inline-block">
+                    <img id="user-avatar" src="" class="w-24 h-24 rounded-2xl border-2 border-slate-700 shadow-xl" alt="Profil Kafası">
+                    <span id="user-badge" class="absolute -bottom-2 -right-4 px-3 py-1 text-xs font-black rounded-lg text-slate-950 uppercase tracking-wider"></span>
+                </div>
+                
+                <div>
+                    <h4 id="welcome-text" class="text-2xl font-black text-white"></h4>
+                    <p id="rank-text" class="text-sm text-slate-400 mt-2 max-w-sm mx-auto"></p>
+                </div>
+
+                <div class="pt-4 border-t border-slate-800/60 max-w-sm mx-auto">
+                    <button onclick="createServer()" class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black p-4 rounded-xl transition shadow-lg flex items-center justify-center gap-2 text-lg">
+                        <i class="fa-solid fa-bolt"></i> Sunucu Başlat
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="stats" class="space-y-6">
+            <h3 class="text-3xl font-bold text-center flex items-center justify-center gap-3">
+                <i class="fa-solid fa-trophy text-amber-400"></i> En Zengin Oyuncular
+            </h3>
+            <div class="bg-slate-950/40 border border-slate-800 rounded-2xl overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-900/50 text-slate-400 text-sm uppercase tracking-wider border-b border-slate-800">
+                            <th class="p-4 pl-6 w-20">Sıra</th>
+                            <th class="p-4">Oyuncu Adı</th>
+                            <th class="p-4">Öldürme</th>
+                            <th class="p-4 pr-6 text-right">Cüzdan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body" class="divide-y divide-slate-800/50 text-slate-300">
+                        </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
 
     <footer class="border-t border-slate-900 bg-slate-950/60 py-6 text-center text-sm text-slate-500">
-        &copy; 2026 MaceySMP. Tüm Hakları Saklıdır.
+        &copy; 2026 MaceySMP. Tüm Hakları Saklıdır. Giriş Yapan Kurucu: UmutElidenk.
     </footer>
 
     <script>
         // IP Kopyalama Fonksiyonu
         function copyIP() {
             navigator.clipboard.writeText("play.maceysmp.net");
-            alert("Sunucu IP adresi kopyalandı: play.maceysmp.net");
+            alert("Sunucu IP adresi panoya kopyalandı: play.maceysmp.net");
         }
 
-        // Örnek Oyuncu Verileri (Gerçek projede burası veri tabanından veya sunucudan fetch ile çekilecek)
-        const mockData = [
-            { name: "BaharElidenk", kills: 142, money: 35500 },
+        // Aktif Kullanıcı Oturum Bilgisi
+        let session = {
+            isLoggedIn: false,
+            username: "",
+            rank: "PLAYER"
+        };
+
+        // Giriş Yapma Tetikleyicisi
+        function handleLogin() {
+            const usernameInput = document.getElementById("mc-username").value.trim();
+            
+            if (usernameInput === "") {
+                alert("Lütfen geçerli bir Minecraft kullanıcı adı girin!");
+                return;
+            }
+
+            session.isLoggedIn = true;
+            session.username = usernameInput;
+
+            // UMUT KONTROLÜ: Kullanıcı adı UmutElidenk ise direkt OWNER rütbesi verilir
+            if (session.username.toLowerCase() === "umutelidenk".toLowerCase()) {
+                session.rank = "OWNER";
+            } else {
+                session.rank = "PLAYER";
+            }
+
+            // Arayüz Değişimi (Formu gizle, profili göster)
+            document.getElementById("login-form").classList.add("hidden");
+            const profileCard = document.getElementById("profile-card");
+            profileCard.classList.remove("hidden");
+            
+            document.getElementById("welcome-text").innerText = `Hoş geldin, ${session.username}!`;
+            
+            const badge = document.getElementById("user-badge");
+            const rankText = document.getElementById("rank-text");
+            const avatarImg = document.getElementById("user-avatar");
+
+            // Rütbeye Göre Özelleştirme ve Tasarım Renklendirmesi
+            if (session.rank === "OWNER") {
+                badge.innerText = "OWNER";
+                badge.className = "absolute -bottom-2 -right-4 px-3 py-1 text-xs font-black rounded-lg text-slate-950 bg-amber-400 uppercase tracking-wider owner-glow";
+                rankText.innerHTML = "✨ <span class='text-amber-400 font-bold'>MaceySMP Kurucusu</span> yetkisi aktif. Sistemi hiçbir ücret ödemeden sınırsız kullanabilirsiniz, Umut Bey.";
+                profileCard.parentElement.classList.add("border-amber-500/40");
+            } else {
+                badge.innerText = "PLAYER";
+                badge.className = "absolute -bottom-2 -right-4 px-3 py-1 text-xs font-black rounded-lg text-white bg-slate-600 uppercase tracking-wider";
+                rankText.innerHTML = "Mevcut durumunuz: <span class='text-cyan-400 font-semibold'>Normal Oyuncu</span>. Sunucu açabilmeniz için mağazadan kredi yüklemeniz gerekmektedir.";
+            }
+
+            // TLauncher ve Orijinal Skinlerin Kafa Bölgesini Çeken API Bağlantısı (Kulaklık/Şapka Katmanı Dahil)
+            const avatarUrl = `https://crafatar.com/avatars/${session.username}?size=128&overlay`;
+            avatarImg.src = avatarUrl;
+            
+            // Eğer skin yüklenemezse kırılmayı önleyen yedek Steve kafası koruması
+            avatarImg.onerror = function() {
+                this.src = "https://crafatar.com/avatars/Steve?size=128";
+            };
+        }
+
+        // Sunucu Kurma Buton Kontrolü
+        function createServer() {
+            if (!session.isLoggedIn) return;
+
+            if (session.rank === "OWNER") {
+                alert(`Giriş Doğrulandı: Merhaba Umut! OWNER yetkin sayesinde MaceySMP altyapısı üzerinde BEDAVA sunucun hemen kuruluyor... 🚀`);
+            } else {
+                alert("Hata: Sunucu açma izniniz bulunmuyor! Normal oyuncuların sunucu açabilmesi için bakiye yüklemesi gerekmektedir.");
+            }
+        }
+
+        // Liderlik Tablosu Verileri (Örnek Liste)
+        const leaderboardData = [
+            { name: "UmutElidenk", kills: 284, money: 71000 },
             { name: "FurkanTeq", kills: 98, money: 24500 },
             { name: "Wimoo_Fake", kills: 45, money: 11250 },
-            { name: "Player101", kills: 12, money: 3000 }
+            { name: "Player_TL", kills: 14, money: 3500 }
         ];
 
         function loadLeaderboard() {
             const tbody = document.getElementById("leaderboard-body");
             tbody.innerHTML = "";
 
-            // Verileri paraya göre büyükten küçüğe sırala
-            mockData.sort((a, b) => b.money - a.money);
+            // Paraya göre büyükten küçüğe sıralama yapılıyor
+            leaderboardData.sort((a, b) => b.money - a.money);
 
-            mockData.forEach((player, index) => {
+            leaderboardData.forEach((player, index) => {
                 let rankBadge = index + 1;
                 if(index === 0) rankBadge = "🥇";
                 if(index === 1) rankBadge = "🥈";
@@ -112,7 +221,7 @@
                     <tr class="hover:bg-slate-900/30 transition">
                         <td class="p-4 pl-6 font-bold text-lg">${rankBadge}</td>
                         <td class="p-4 font-semibold flex items-center gap-3">
-                            <img src="https://mc-heads.net/avatar/${player.name}/32" class="rounded" alt="">
+                            <img src="https://crafatar.com/avatars/${player.name}?size=32&overlay" class="rounded w-8 h-8" onerror="this.src='https://crafatar.com/avatars/Steve?size=32'" alt="">
                             ${player.name}
                         </td>
                         <td class="p-4 text-rose-400 font-medium">${player.kills} Kills</td>
@@ -123,11 +232,11 @@
             });
         }
 
-        // Sunucu Durumunu Çekme (Minecraft API üzerinden Canlı Veri)
+        // Sunucunun Canlı Durumunu ve Oyuncu Sayısını Çeken Fonksiyon
         async function updateServerStatus() {
             try {
-                // Not: Gerçek bir IP bağladığında 'play.maceysmp.net' yazabilirsin.
-                const res = await fetch("https://api.mcsrvstat.us/2/maceysmp.net"); 
+                // Gerçek sunucunu açtığında aşağıdaki IP alanını değiştirebilirsin
+                const res = await fetch("https://api.mcsrvstat.us/2/hypixel.net"); 
                 const data = await res.json();
                 
                 if(data.online) {
@@ -137,12 +246,12 @@
                     document.getElementById("player-count").innerText = "0 / 0";
                 }
             } catch (error) {
-                // API hata verirse varsayılan bir değer gösterelim
-                document.getElementById("player-count").innerText = "42 / 1000";
+                // Bağlantı kurulamazsa veya test aşaması için varsayılan değer
+                document.getElementById("player-count").innerText = "142 / 1000";
             }
         }
 
-        // Sayfa yüklendiğinde çalıştır
+        // Sayfa ilk açıldığında listeleri ve sayaçları yükle
         loadLeaderboard();
         updateServerStatus();
     </script>
